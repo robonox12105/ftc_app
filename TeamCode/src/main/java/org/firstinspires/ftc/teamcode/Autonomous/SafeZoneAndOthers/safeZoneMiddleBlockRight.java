@@ -13,7 +13,7 @@ import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
  * Drops Glyph In Center
  */
 
-@Autonomous(name = "safe zone", group = "prototypes")
+@Autonomous(name = "safe zone M R", group = "prototypes")
 public class safeZoneMiddleBlockRight extends LinearOpMode {
     private DcMotor motorLeft1;
     private DcMotor motorRight1;
@@ -23,7 +23,7 @@ public class safeZoneMiddleBlockRight extends LinearOpMode {
     private DcMotor motorArm;
 
     // servos
-    private Servo bigClaw;
+    //private Servo bigClaw;
     private Servo wristServo;
     private Servo elbowServo;
 
@@ -41,6 +41,8 @@ public class safeZoneMiddleBlockRight extends LinearOpMode {
     private static final double ELBOW_POP_POSITION = 0;
 
     //arm power
+    private static final double CLOSE_POSITION = 0;
+    private static final double OPEN_POSITION = 1;
 
     private static final double armPower = .05;
     @Override
@@ -62,26 +64,46 @@ public class safeZoneMiddleBlockRight extends LinearOpMode {
 
 
 
+
         // SERVO SETUP
-        bigClaw = hardwareMap.servo.get("bigClaw");
+        //bigClaw = hardwareMap.servo.get("bigClaw");
 
-        bigClaw.setPosition(ARM_RETRACTED_POSITION);
 
-        wristServo = hardwareMap.servo.get("smallClaw");
 
-        bigClaw.setPosition(.9);
+        wristServo = hardwareMap.servo.get("wristServo");
+
+
         waitForStart();
 
         // let's gOOO
-
-        driveForwardTime(.75, 2000);
+        //bigClaw.setPosition(CLOSE_POSITION);
+        closeOpen(.5,300);
+        driveForwardTime(.5, 1000);
         turnRightTime(.35, 500);
+        closeOpen(-.5,300);
+        //releaseGlyph();
+        driveForwardTime(.5, 600);
+        driveBackwardtime(.5,300);
         stopDriving();
-        releaseGlyph();
 
 
 
 
+    }
+    // backwards
+    public void driveBackwardtime(double power, long time) throws InterruptedException
+    {
+        motorLeft1.setPower(power);
+        motorLeft2.setPower(power);
+        motorRight1.setPower(-power);
+        motorRight2.setPower(-power);
+        Thread.sleep(time);
+    }
+    // arm open
+    public void closeOpen(double power, long time) throws InterruptedException
+    {
+        motorArm.setPower(power);
+        Thread.sleep(time);
     }
     // driving forward!
     public void driveForward(double power)
@@ -174,7 +196,7 @@ public class safeZoneMiddleBlockRight extends LinearOpMode {
     // releases glyph
     public void releaseGlyph()
     {
-        bigClaw.setPosition(ARM_RETRACTED_POSITION);
+       // bigClaw.setPosition(1);
     }
 
     //moves lifting up for a specific amount of time and power!!

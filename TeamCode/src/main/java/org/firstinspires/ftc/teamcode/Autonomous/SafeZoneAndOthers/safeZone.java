@@ -23,7 +23,7 @@ public class safeZone extends LinearOpMode {
     private DcMotor motorArm;
 
     // servos
-    private Servo bigClaw;
+   // private Servo bigClaw;
     private Servo wristServo;
     private Servo elbowServo;
 
@@ -63,22 +63,33 @@ public class safeZone extends LinearOpMode {
 
 
         // SERVO SETUP
-        bigClaw = hardwareMap.servo.get("bigClaw");
+        //bigClaw = hardwareMap.servo.get("bigClaw");
 
-        bigClaw.setPosition(ARM_RETRACTED_POSITION);
 
-        wristServo = hardwareMap.servo.get("smallClaw");
+        wristServo = hardwareMap.servo.get("wristServo");
 
-        bigClaw.setPosition(.9);
+
         waitForStart();
 
         // let's gOOO
+       // bigClaw.setPosition(ARM_RETRACTED_POSITION);
+        closeOpen(.5,300);
+        driveForwardTime(.5, 1500);
 
-        driveForwardTime(.75, 2000);
+        closeOpen(-.5,300);
+        driveBackwardtime(.5, 300);
         stopDriving();
 
 
 
+
+    }
+
+    // arm open
+    public void closeOpen(double power, long time) throws InterruptedException
+    {
+        motorArm.setPower(power);
+        Thread.sleep(time);
     }
     // driving forward!
     public void driveForward(double power)
@@ -87,6 +98,14 @@ public class safeZone extends LinearOpMode {
         motorLeft2.setPower(-power);
         motorRight1.setPower(power);
         motorRight2.setPower(power);
+    }
+    public void driveBackwardtime(double power, long time) throws InterruptedException
+    {
+        motorLeft1.setPower(power);
+        motorLeft2.setPower(power);
+        motorRight1.setPower(-power);
+        motorRight2.setPower(-power);
+        Thread.sleep(time);
     }
     //move right
     public void moveRight(double power)
@@ -171,7 +190,7 @@ public class safeZone extends LinearOpMode {
     // releases glyph
     public void releaseGlyph()
     {
-        bigClaw.setPosition(ARM_RETRACTED_POSITION);
+        //bigClaw.setPosition(ARM_RETRACTED_POSITION);
     }
 
     //moves lifting up for a specific amount of time and power!!

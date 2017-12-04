@@ -1,0 +1,211 @@
+package org.firstinspires.ftc.teamcode.DriverControl;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
+
+/**
+ * Created by Robonox on 10/18/2017.
+ */
+
+@TeleOp(name = "OpModeMk4", group = "prototypes")
+public class OpMOdeMk4 extends LinearOpMode {
+    //driving motors
+    private DcMotor motorLeft1;
+    private DcMotor motorRight1;
+    private DcMotor motorLeft2;
+    private DcMotor motorRight2;
+    //motor for lifting claw
+    private DcMotor motorLift;
+    // servos
+    //private Servo bigClaw;
+    private Servo wristServo;
+    private Servo elbowServo;
+
+    // comment out if they use motors instead
+
+    private DcMotor motorArm;
+
+    // variables
+    private static final double CLOSE_POSITION = 0;
+    private static final double OPEN_POSITION = 1;
+
+    private static final double CLAW_OPEN = .2;
+    private static final double CLAW_CLOSE = 1;
+
+    private static final double LIFT_POWER = .7;
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        // telling robot to
+        motorLeft1 = hardwareMap.dcMotor.get("motorLeft1");
+        motorRight1 = hardwareMap.dcMotor.get("motorRight1");
+        motorLeft2 = hardwareMap.dcMotor.get("motorLeft2");
+        motorRight2 = hardwareMap.dcMotor.get("motorRight2");
+        motorLift = hardwareMap.dcMotor.get("motorLift");
+
+        //setting the orientation of the driving motors
+        motorLeft1.setDirection(FORWARD);
+        motorLeft2.setDirection(FORWARD);
+        motorRight1.setDirection(FORWARD);
+        motorRight2.setDirection(FORWARD);
+        motorLift.setDirection(FORWARD);
+
+
+
+        // SERVO SETUP
+        //bigClaw = hardwareMap.servo.get("bigClaw");
+
+        //presetting a position for the big claw
+
+
+        //telling robot
+        wristServo = hardwareMap.servo.get("wristServo");
+        elbowServo = hardwareMap.servo.get("elbowServo");
+
+        //setting orientation of the motor for extending arm
+        motorArm = hardwareMap.dcMotor.get("motorArm");
+        motorArm.setDirection(FORWARD);
+
+
+
+
+
+        waitForStart();
+
+        while (opModeIsActive()){
+
+            //dpad of controller 1 is used for all linear driving movements of
+            //the robot
+
+            /*MOVE LEFT */
+            if (gamepad1.dpad_left)
+            {
+                motorLeft1.setPower(.3);
+                motorLeft2.setPower(-.3);
+                motorRight1.setPower(.3);
+                motorRight2.setPower(-.3);
+            }
+            /*MOVE RIGHT*/
+            else if (gamepad1.dpad_right)
+            {
+                motorLeft1.setPower(-.3);
+                motorLeft2.setPower(.3);
+                motorRight1.setPower(-.3);
+                motorRight2.setPower(.3);
+            }
+            /*FORWARD*/
+            else if (gamepad1.dpad_up)
+            {
+                motorLeft1.setPower(-.3);
+                motorLeft2.setPower(-.3);
+                motorRight1.setPower(.3);
+                motorRight2.setPower(.3);
+            }
+            /*BACKWARD*/
+            else if (gamepad1.dpad_down)
+            {
+                motorLeft1.setPower(.3);
+                motorLeft2.setPower(.3);
+                motorRight1.setPower(-.3);
+                motorRight2.setPower(-.3);
+            }
+            //SPIN LEFT
+            else if (gamepad1.right_stick_x < 0 )
+            {
+                motorLeft1.setPower(.35);
+                motorLeft2.setPower(.35);
+                motorRight1.setPower(.35);
+                motorRight2.setPower(.35);
+            }
+            /*SPIN RIGHT*/
+            else if (gamepad1.right_stick_x > 0 )
+            {
+                motorLeft1.setPower(-.35);
+                motorLeft2.setPower(-.35);
+                motorRight1.setPower(-.35);
+                motorRight2.setPower(-.35);
+            } else {
+                motorLeft1.setPower(0);
+                motorLeft2.setPower(0);
+                motorRight1.setPower(0);
+                motorRight2.setPower(0);
+            }
+
+
+
+
+            //the lifting mechanism is controlled by the bumpers
+            //on controller 2
+
+            //LIFT UP-DOWN
+            if (gamepad2.dpad_up)
+            {
+                motorLift.setPower(LIFT_POWER);
+            } else if (gamepad2.dpad_down)
+            {
+                motorLift.setPower(-LIFT_POWER);
+            } else
+            {
+                motorLift.setPower(0);
+            }
+
+            //the opening and closing of the main claw is used by the buttons a & b
+            // on controller 2
+            //BIG CLAW OPEN-CLOSE
+           /* if (gamepad2.b)
+            {
+                bigClaw.setPosition(OPEN_POSITION);
+            }
+            if (gamepad2.a)
+            {
+                bigClaw.setPosition(CLOSE_POSITION);
+            }
+*/
+            //the opening and closing of the small claw is used by the buttons x & y
+            // on controller 2
+            //SMALL CLAW OPEN-CLOSE
+            // team 11920 graciously supplied us with an extension cord
+             if (gamepad2.y)
+            {
+                wristServo.setPosition(CLAW_OPEN);
+            }
+            if (gamepad2.x)
+            {
+                wristServo.setPosition(CLAW_CLOSE);
+            }
+
+            //SMALL CLAW ARMS
+
+            //motor extending movement of the small claw arm is used by the
+            // bumpers on controller 2
+            //SMALL CLAW ARM EXTEND-RETRACT
+            if (gamepad2.right_bumper)
+            {
+                motorArm.setPower(.3);
+            }else if (gamepad2.left_bumper)
+            {
+                motorArm.setPower(-.3);
+            }else {
+                motorArm.setPower(0);
+            }
+            //lifting the middle of the extending arm will be controlled
+            //
+            if (gamepad2.left_trigger == 1) {
+                elbowServo.setPosition(1);
+            }
+            if (gamepad2.right_trigger == 1) {
+                elbowServo.setPosition(0);
+            }
+
+            idle();
+
+        }
+    }
+}

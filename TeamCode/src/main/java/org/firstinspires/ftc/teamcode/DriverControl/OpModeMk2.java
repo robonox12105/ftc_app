@@ -39,8 +39,8 @@ public class OpModeMk2 extends LinearOpMode {
 
     private static final double LIFT_POWER = .5;
 
-    private static final double ELBOW_START_POSITION = 1;
-    private static final double ELBOW_POP_POSITION = 0;
+    private static final double ELBOW_START_POSITION = 0.4;
+    private static final double ELBOW_POP_POSITION = 0.2;
 
     //arm power
 
@@ -69,7 +69,7 @@ public class OpModeMk2 extends LinearOpMode {
 
         bigClaw.setPosition(ARM_RETRACTED_POSITION);
 
-        wristServo = hardwareMap.servo.get("smallClaw");
+        wristServo = hardwareMap.servo.get("wristServo");
 
         
         waitForStart();
@@ -77,7 +77,7 @@ public class OpModeMk2 extends LinearOpMode {
         while (opModeIsActive()){
 
                   /*MOVE LEFT */
-            if (gamepad1.dpad_left)
+            if (gamepad1.dpad_right)
             {
                 motorLeft1.setPower(-.75);
                 motorLeft2.setPower(.75);
@@ -85,7 +85,7 @@ public class OpModeMk2 extends LinearOpMode {
                 motorRight2.setPower(.75);
             }
             /*MOVE RIGHT*/
-             else if (gamepad1.dpad_right)
+             else if (gamepad1.dpad_left)
             {
                 motorLeft1.setPower(.75);
                 motorLeft2.setPower(-.75);
@@ -111,18 +111,18 @@ public class OpModeMk2 extends LinearOpMode {
             /*SPIN LEFT*/
             else if (gamepad1.right_stick_x < 0 )
             {
-                motorLeft1.setPower(.35);
-                motorLeft2.setPower(.35);
-                motorRight1.setPower(.35);
-                motorRight2.setPower(.35);
+                motorLeft1.setPower(.3);
+                motorLeft2.setPower(.3);
+                motorRight1.setPower(.3);
+                motorRight2.setPower(.3);
             }
             /*SPIN RIGHT*/
             else if (gamepad1.right_stick_x > 0 )
             {
-                motorLeft1.setPower(-.35);
-                motorLeft2.setPower(-.35);
-                motorRight1.setPower(-.35);
-                motorRight2.setPower(-.35);
+                motorLeft1.setPower(-.3);
+                motorLeft2.setPower(-.3);
+                motorRight1.setPower(-.3);
+                motorRight2.setPower(-.3);
             } else {
                 motorLeft1.setPower(0);
                 motorLeft2.setPower(0);
@@ -165,11 +165,11 @@ public class OpModeMk2 extends LinearOpMode {
             }
 
             //ELBOW UP
-            if (gamepad2.dpad_right)
+            if (gamepad2.left_trigger == 1)
             {
                 elbowServo.setPosition(ELBOW_START_POSITION);
             }
-            if (gamepad2.dpad_left)
+            if (gamepad2.right_trigger == 1)
             {
                 elbowServo.setPosition(ELBOW_POP_POSITION);
             }
