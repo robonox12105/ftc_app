@@ -11,10 +11,16 @@ import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 /**
  * Created by Robonox on 12/3/2017.
  * goes to safe zone.
+ * Autonomous code!!
+ * It also grabs the block
+ * puts it in if aligned correctly
+ * releases then backs away from the blocks
  */
 
 @Autonomous(name = "safe zone", group = "prototypes")
 public class safeZone extends LinearOpMode {
+
+    // this sets up the motors and servos and also variables
     private DcMotor motorLeft1;
     private DcMotor motorRight1;
     private DcMotor motorLeft2;
@@ -45,6 +51,8 @@ public class safeZone extends LinearOpMode {
     private static final double armPower = .05;
     @Override
     public void runOpMode() throws InterruptedException {
+        // intialization
+
         // MOTOR SETUP
         motorLeft1 = hardwareMap.dcMotor.get("motorLeft1");
         motorRight1 = hardwareMap.dcMotor.get("motorRight1");
@@ -84,6 +92,9 @@ public class safeZone extends LinearOpMode {
 
 
     }
+
+
+    // FUNCTIONS
 
     // arm open
     public void closeOpen(double power, long time) throws InterruptedException
@@ -216,3 +227,4 @@ public class safeZone extends LinearOpMode {
         motorRight2.setPower(0);
     }
 }
+

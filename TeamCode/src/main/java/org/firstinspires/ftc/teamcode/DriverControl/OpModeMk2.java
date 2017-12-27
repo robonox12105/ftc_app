@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.DriverControl;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,6 +15,7 @@ import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
  */
 
 @TeleOp(name = "OpModeMk2", group = "prototypes")
+@Disabled
 public class OpModeMk2 extends LinearOpMode {
     private DcMotor motorLeft1;
     private DcMotor motorRight1;
