@@ -30,7 +30,7 @@ public class OpModeNew extends LinearOpMode {
     //variables
     private static final double drivingSpeed = .3;
     private static final double turnSpeed = .35;
-    private static final double motorArmSpeed = .4;
+    private static final double motorArmSpeed = .15;
 
 
     @Override
@@ -53,6 +53,11 @@ public class OpModeNew extends LinearOpMode {
         motorRight1.setDirection(FORWARD);
         motorRight2.setDirection(FORWARD);
         motorArm.setDirection(FORWARD);
+
+        // INIT
+
+        leftServo.setPosition(1);
+        rightServo.setPosition(0);
 
         waitForStart();
 
@@ -89,7 +94,7 @@ public class OpModeNew extends LinearOpMode {
             if (gamepad1.b) {
                 openClaw();
             }
-
+            idle();
         }
 
 
