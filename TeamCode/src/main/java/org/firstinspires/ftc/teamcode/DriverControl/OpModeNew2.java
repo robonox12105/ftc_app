@@ -34,7 +34,7 @@ public class OpModeNew2 extends LinearOpMode {
     //variables
     private static final double drivingSpeed = .3;
     private static final double turnSpeed = .35;
-    private static final double motorArmSpeed = .5;
+    private static final double motorArmSpeed = .45;
 
 
 
@@ -65,8 +65,16 @@ public class OpModeNew2 extends LinearOpMode {
 
         // INIT
 
+      /*  leftLiveAxel.setPosition(.8);
+        rightLiveAxel.setPosition(0);
+        leftServo.setPosition(.3);
+        rightServo.setPosition(.7);
+
         leftServo.setPosition(1);
         rightServo.setPosition(0);
+        leftLiveAxel.setPosition(1);
+        rightLiveAxel.setPosition(.5);*/
+
 
         waitForStart();
 
@@ -99,20 +107,27 @@ public class OpModeNew2 extends LinearOpMode {
             } else if (gamepad2.right_bumper) {
                 motorArmLeft.setPower(-motorArmSpeed);
                 motorArmRight.setPower(motorArmSpeed);
+            } else {
+                motorArmLeft.setPower(0);
+                motorArmRight.setPower(0);
             }
 
-            // opening and closing claw for the glyph **** GAMEPAD 1 ****
-            if (gamepad1.a) {
+            // opening and closing claw for the glyph **** GAMEPAD 2 ****
+            if (gamepad2.a) {
                 closeClaw();
             }
-            if (gamepad1.b) {
+            if (gamepad2.b) {
                 openClaw();
             }
-            if (gamepad1.y) {
-                moveAxelUp();
+            if (gamepad2.y) {
+                leftLiveAxel.setPosition(.8);
+                rightLiveAxel.setPosition(0);
+                leftServo.setPosition(.3);
+                rightServo.setPosition(.7);
             }
-            if (gamepad1.x) {
-                moveAxelDown();
+
+            if (gamepad2.back) {
+                initPos();
             }
 
 
@@ -130,7 +145,7 @@ public class OpModeNew2 extends LinearOpMode {
         double leftAxel = leftLiveAxel.getPosition();
         double rightAxel = rightLiveAxel.getPosition();
         leftAxel = leftAxel + .1;
-        rightAxel = rightAxel + .1;
+        rightAxel = rightAxel - .1;
         leftLiveAxel.setPosition(leftAxel);
         rightLiveAxel.setPosition(rightAxel);
 
@@ -141,21 +156,21 @@ public class OpModeNew2 extends LinearOpMode {
         double leftAxel = leftLiveAxel.getPosition();
         double rightAxel = rightLiveAxel.getPosition();
         leftAxel = leftAxel - .1;
-        rightAxel = rightAxel - .1;
+        rightAxel = rightAxel + .1;
         leftLiveAxel.setPosition(leftAxel);
         rightLiveAxel.setPosition(rightAxel);
     }
 
     public void closeClaw()
     {
-        leftServo.setPosition(0);
+        leftServo.setPosition(1);
         rightServo.setPosition(0);
     }
 
     public void openClaw()
     {
-        leftServo.setPosition(1);
-        rightServo.setPosition(1);
+        leftServo.setPosition(.3);
+        rightServo.setPosition(.7);
     }
 
     // driving forward!
@@ -205,6 +220,14 @@ public class OpModeNew2 extends LinearOpMode {
         motorLeft2.setPower(-power);
         motorRight1.setPower(-power);
         motorRight2.setPower(-power);
+    }
+
+    //set initial position
+    public void initPos() {
+        leftLiveAxel.setPosition(.9);
+        rightLiveAxel.setPosition(0);
+        leftServo.setPosition(.3);
+        rightServo.setPosition(.7);
     }
 
 }
