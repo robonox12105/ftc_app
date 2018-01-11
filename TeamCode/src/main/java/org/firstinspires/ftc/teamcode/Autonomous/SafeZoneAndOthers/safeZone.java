@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous.onlySafeZone;
+package org.firstinspires.ftc.teamcode.Autonomous.SafeZoneAndOthers;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;

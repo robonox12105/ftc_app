@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.DriverControl;
 
-/**
- * Created by Robonox <3 on 12/27/2017.
- */
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,11 +9,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
 
+/**
+ * Created by chris on 1/10/2018.
+ */
 
 
-
-@TeleOp(name = "OpModeNew", group = "prototypes")
-public class OpModeNew extends LinearOpMode {
+@TeleOp(name = "OpModeNew2", group = "prototypes")
+public class OpModeNew2 extends LinearOpMode {
 
     // motors
     private DcMotor motorLeft1;
@@ -35,7 +34,7 @@ public class OpModeNew extends LinearOpMode {
     //variables
     private static final double drivingSpeed = .3;
     private static final double turnSpeed = .35;
-    private static final double motorArmSpeed = .15;
+    private static final double motorArmSpeed = .5;
 
 
 
@@ -72,7 +71,6 @@ public class OpModeNew extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-
             // driving **** GAMEPAD 1 ****
             if (gamepad1.dpad_up) {
                 driveForward(drivingSpeed);
@@ -118,8 +116,12 @@ public class OpModeNew extends LinearOpMode {
             }
 
 
+
+
             idle();
         }
+
+
     }
     // VARIOUS FUNCTIONS FOR CONVENIENCE
 
@@ -147,13 +149,13 @@ public class OpModeNew extends LinearOpMode {
     public void closeClaw()
     {
         leftServo.setPosition(0);
-        rightServo.setPosition(1);
+        rightServo.setPosition(0);
     }
 
     public void openClaw()
     {
         leftServo.setPosition(1);
-        rightServo.setPosition(0);
+        rightServo.setPosition(1);
     }
 
     // driving forward!
@@ -173,7 +175,7 @@ public class OpModeNew extends LinearOpMode {
 
     }
     //move right
-    public void moveRight(double power)
+    public void moveLeft(double power)
     {
         motorLeft1.setPower(power);
         motorLeft2.setPower(-power);
@@ -181,7 +183,7 @@ public class OpModeNew extends LinearOpMode {
         motorRight2.setPower(-power);
     }
     //moveLeft
-    public void moveLeft(double power)
+    public void moveRight(double power)
     {
         motorLeft1.setPower(-power);
         motorLeft2.setPower(power);
@@ -204,10 +206,7 @@ public class OpModeNew extends LinearOpMode {
         motorRight1.setPower(-power);
         motorRight2.setPower(-power);
     }
+
 }
-
-
-
-
 
 
