@@ -15,8 +15,8 @@ import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
  */
 
 
-@TeleOp(name = "OpModeNew2", group = "prototypes")
-public class OpModeNew2 extends LinearOpMode {
+@TeleOp(name = "OpModeNew3", group = "prototypes")
+public class OpModeNew3 extends LinearOpMode {
 
     // motors
     private DcMotor motorLeft1;
@@ -66,11 +66,7 @@ public class OpModeNew2 extends LinearOpMode {
         motorArmRight.setDirection(FORWARD);
 
         // INIT
-        double leftAxel;
 
-        double rightAxel;
-        rightAxel = rightLiveAxel.getPosition();
-        leftAxel = leftLiveAxel.getPosition();
       /*  leftLiveAxel.setPosition(.8);
         rightLiveAxel.setPosition(0);
         leftServo.setPosition(.3);
@@ -132,7 +128,7 @@ public class OpModeNew2 extends LinearOpMode {
                 rightServo.setPosition(.7);
             }
 
-            if (gamepad2.y)
+           /* if (gamepad2.y)
             {
                 double changeLeft = moveLeftAxelDown(leftAxel);
                 double changeRight = moveRightAxelDown(rightAxel);
@@ -160,7 +156,7 @@ public class OpModeNew2 extends LinearOpMode {
 
 
             }
-
+*/
             if (gamepad2.back) {
                 initPos();
             }
@@ -179,7 +175,7 @@ public class OpModeNew2 extends LinearOpMode {
 
     public double moveLeftAxelUp(double leftAxeldiff)
     {
-        leftAxeldiff = leftAxeldiff + .05;
+        leftAxeldiff = leftAxeldiff + .1;
 
         return leftAxeldiff;
 
@@ -188,20 +184,20 @@ public class OpModeNew2 extends LinearOpMode {
     public double moveRightAxelUp( double rightAxeldiff)
     {
 
-        rightAxeldiff = rightAxeldiff - .05;
+        rightAxeldiff = rightAxeldiff - .1;
         return rightAxeldiff;
     }
 
     public double moveLeftAxelDown(double leftAxeldiff)
     {
 
-        leftAxeldiff = leftAxeldiff - .05;
+        leftAxeldiff = leftAxeldiff - .1;
         return leftAxeldiff;
 
     }
 
     public double moveRightAxelDown(double rightAxeldiff) {
-        rightAxeldiff = rightAxeldiff + .05;
+        rightAxeldiff = rightAxeldiff + .1;
         return rightAxeldiff;
     }
 
