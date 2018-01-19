@@ -25,13 +25,19 @@ public class safeZone extends LinearOpMode {
     private DcMotor motorRight1;
     private DcMotor motorLeft2;
     private DcMotor motorRight2;
+    //motor for lifting claw
     private DcMotor motorLift;
-    private DcMotor motorArm;
-
     // servos
-   // private Servo bigClaw;
-    private Servo wristServo;
-    private Servo elbowServo;
+    private Servo bigClaw;
+    //private Servo wristServo;
+    //private Servo elbowServo;
+    private Servo leftServo;
+    private Servo rightServo;
+
+    // comment out if they use motors instead
+
+    private DcMotor motorArmExtender;
+    private DcMotor motorWrist;
 
     // variables
     private static final double ARM_RETRACTED_POSITION = 0;
@@ -59,14 +65,23 @@ public class safeZone extends LinearOpMode {
         motorLeft2 = hardwareMap.dcMotor.get("motorLeft2");
         motorRight2 = hardwareMap.dcMotor.get("motorRight2");
         motorLift = hardwareMap.dcMotor.get("motorLift");
-        motorArm = hardwareMap.dcMotor.get("motorArm");
+        motorLift = hardwareMap.dcMotor.get("motorLift");
 
-        motorArm.setDirection(FORWARD);
         motorLeft1.setDirection(FORWARD);
         motorLeft2.setDirection(FORWARD);
         motorRight1.setDirection(FORWARD);
         motorRight2.setDirection(FORWARD);
         motorLift.setDirection(FORWARD);
+        motorLift.setDirection(FORWARD);
+
+        leftServo = hardwareMap.servo.get("leftServo");
+        rightServo = hardwareMap.servo.get("rightServo");
+
+        //setting orientation of the motor for extending arm
+        motorArmExtender = hardwareMap.dcMotor.get("motorArmExtender");
+        motorWrist = hardwareMap.dcMotor.get("motorWrist");
+        motorArmExtender.setDirection(FORWARD);
+        motorWrist.setDirection(FORWARD);
 
 
 
@@ -74,17 +89,17 @@ public class safeZone extends LinearOpMode {
         //bigClaw = hardwareMap.servo.get("bigClaw");
 
 
-        wristServo = hardwareMap.servo.get("wristServo");
+
 
 
         waitForStart();
 
         // let's gOOO
        // bigClaw.setPosition(ARM_RETRACTED_POSITION);
-        closeOpen(.5,300);
+        openClaw();
         driveForwardTime(.5, 1500);
 
-        closeOpen(-.5,300);
+        closeClaw();
         driveBackwardtime(.5, 300);
         stopDriving();
 
@@ -92,16 +107,28 @@ public class safeZone extends LinearOpMode {
 
 
     }
+    public void closeClaw() {
+        leftServo.setPosition(1);
+        rightServo.setPosition(0);
+    }
+
+    public void openClaw() {
+        leftServo.setPosition(.5);
+        rightServo.setPosition(.5);
+    }
+
 
 
     // FUNCTIONS
 
-    // arm open
+
+
+    /* arm open
     public void closeOpen(double power, long time) throws InterruptedException
     {
         motorArm.setPower(power);
         Thread.sleep(time);
-    }
+    }*/
     // driving forward!
     public void driveForward(double power)
     {

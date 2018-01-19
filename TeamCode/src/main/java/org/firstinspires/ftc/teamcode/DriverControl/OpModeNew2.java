@@ -69,8 +69,8 @@ public class OpModeNew2 extends LinearOpMode {
         double leftAxel;
 
         double rightAxel;
-        rightAxel = rightLiveAxel.getPosition();
-        leftAxel = leftLiveAxel.getPosition();
+        rightAxel = .7;
+        leftAxel = .3;
       /*  leftLiveAxel.setPosition(.8);
         rightLiveAxel.setPosition(0);
         leftServo.setPosition(.3);
@@ -127,7 +127,7 @@ public class OpModeNew2 extends LinearOpMode {
             }
             if (gamepad1.y) {
                 leftLiveAxel.setPosition(.8);
-                rightLiveAxel.setPosition(0);
+                rightLiveAxel.setPosition(0.1);
                 leftServo.setPosition(.3);
                 rightServo.setPosition(.7);
             }
@@ -174,6 +174,8 @@ public class OpModeNew2 extends LinearOpMode {
 
     }
     // VARIOUS FUNCTIONS FOR CONVENIENCE
+
+
 
 
 

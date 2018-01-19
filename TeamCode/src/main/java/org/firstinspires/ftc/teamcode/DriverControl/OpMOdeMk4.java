@@ -23,7 +23,7 @@ public class OpMOdeMk4 extends LinearOpMode {
     //motor for lifting claw
     private DcMotor motorLift;
     // servos
-    //private Servo bigClaw;
+    private Servo bigClaw;
     //private Servo wristServo;
     //private Servo elbowServo;
     private Servo leftServo;
@@ -65,7 +65,7 @@ public class OpMOdeMk4 extends LinearOpMode {
 
 
         // SERVO SETUP
-        //bigClaw = hardwareMap.servo.get("bigClaw");
+        bigClaw = hardwareMap.servo.get("bigClaw");
 
         //presetting a position for the big claw
 
@@ -77,7 +77,7 @@ public class OpMOdeMk4 extends LinearOpMode {
         rightServo = hardwareMap.servo.get("rightServo");
 
         //setting orientation of the motor for extending arm
-        motorArmExtender = hardwareMap.dcMotor.get("motorArm");
+        motorArmExtender = hardwareMap.dcMotor.get("motorArmExtender");
         motorWrist = hardwareMap.dcMotor.get("motorWrist");
         motorArmExtender.setDirection(FORWARD);
         motorWrist.setDirection(FORWARD);
@@ -90,59 +90,7 @@ public class OpMOdeMk4 extends LinearOpMode {
             //dpad of controller 1 is used for all linear driving movements of
             //the robot
 
-            /*MOVE LEFT
-            if (gamepad1.dpad_left)
-            {
-                motorLeft1.setPower(.3);
-                motorLeft2.setPower(-.3);
-                motorRight1.setPower(.3);
-                motorRight2.setPower(-.3);
-            }
-            /*MOVE RIGHT
-            else if (gamepad1.dpad_right)
-            {
-                motorLeft1.setPower(-.3);
-                motorLeft2.setPower(.3);
-                motorRight1.setPower(-.3);
-                motorRight2.setPower(.3);
-            }
-            /*FORWARD
-            else if (gamepad1.dpad_up)
-            {
-                motorLeft1.setPower(-.3);
-                motorLeft2.setPower(-.3);
-                motorRight1.setPower(.3);
-                motorRight2.setPower(.3);
-            }
-            /*BACKWARD
-            else if (gamepad1.dpad_down)
-            {
-                motorLeft1.setPower(.3);
-                motorLeft2.setPower(.3);
-                motorRight1.setPower(-.3);
-                motorRight2.setPower(-.3);
-            }
-            //SPIN LEFT
-            else if (gamepad1.right_stick_x < 0 )
-            {
-                motorLeft1.setPower(.35);
-                motorLeft2.setPower(.35);
-                motorRight1.setPower(.35);
-                motorRight2.setPower(.35);
-            }
-            /*SPIN RIGHT
-            else if (gamepad1.right_stick_x > 0 )
-            {
-                motorLeft1.setPower(-.35);
-                motorLeft2.setPower(-.35);
-                motorRight1.setPower(-.35);
-                motorRight2.setPower(-.35);
-            } else {
-                motorLeft1.setPower(0);
-                motorLeft2.setPower(0);
-                motorRight1.setPower(0);
-                motorRight2.setPower(0);
-            } */
+
 
             // driving **** GAMEPAD 1 ****
             if (gamepad1.dpad_up) {
@@ -184,7 +132,7 @@ public class OpMOdeMk4 extends LinearOpMode {
             //the opening and closing of the main claw is used by the buttons a & b
             // on controller 2
             //BIG CLAW OPEN-CLOSE
-           /* if (gamepad2.b)
+            if (gamepad2.b)
             {
                 bigClaw.setPosition(OPEN_POSITION);
             }
@@ -192,7 +140,7 @@ public class OpMOdeMk4 extends LinearOpMode {
             {
                 bigClaw.setPosition(CLOSE_POSITION);
             }
-*/
+
             //the opening and closing of the small claw is used by the buttons x & y
             // on controller 2
             //SMALL CLAW OPEN-CLOSE
@@ -218,6 +166,18 @@ public class OpMOdeMk4 extends LinearOpMode {
             } else {
                 motorArmExtender.setPower(0);
             }
+            if (gamepad2.x) {
+                motorWrist.setPower(.2);
+
+            } else {
+                motorWrist.setPower(0);
+            }
+
+            if (gamepad2.y){
+                motorWrist.setPower(-2);
+            } else {
+                motorWrist.setPower(0);
+            }
             //lifting the middle of the extending arm will be controlled
             //
            /* if (gamepad2.left_trigger == 1) {
@@ -233,13 +193,13 @@ public class OpMOdeMk4 extends LinearOpMode {
     }
 
     public void closeClaw() {
-        leftServo.setPosition(0);
-        rightServo.setPosition(1);
+        leftServo.setPosition(1);
+        rightServo.setPosition(0);
     }
 
     public void openClaw() {
-        leftServo.setPosition(1);
-        rightServo.setPosition(0);
+        leftServo.setPosition(0);
+        rightServo.setPosition(1);
     }
 
     // driving forward!
@@ -290,7 +250,6 @@ public class OpMOdeMk4 extends LinearOpMode {
         motorRight1.setPower(-power);
         motorRight2.setPower(-power);
     }
-
     // STOPS DRIVING
     private void stopDriving()
     {
